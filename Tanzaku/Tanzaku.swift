@@ -308,7 +308,9 @@ class Tanzaku: UIView {
 			else {return}
 		self.textInfo = textInfo
 		
+		#if DEBUG_LINES
 		print("\n\nLine Height\(font.lineHeight - font.descender), lineHeight: \(font.lineHeight), pointSize: \(font.pointSize), lineSpacing: \(textInfo.lineSpacing),\nascender: \(font.ascender), descender: \(font.descender), leading: \(font.leading)")
+		#endif
 		
 		let framesetter = textInfo.framesetter
 		let frame = CTFramesetterCreateFrame(framesetter, CFRange(location: 0, length: 0), CGPath(rect: rect, transform: nil), Tanzaku.framesetterOptions())
@@ -384,7 +386,7 @@ class Tanzaku: UIView {
 		context.textPosition = CGPoint(x: y, y: x)
 		CTLineDraw(line, context)
 		
-		#if DEBUG
+		#if DEBUG_LINES
 			// 行の枠線を描画
 			context.saveGState()
 			
