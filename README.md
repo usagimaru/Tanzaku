@@ -2,6 +2,9 @@
 
 UIKit に適合した縦書き実装。
 
+<img width=375 src="ss.png">
+
+
 # 実装済み
 
 - 縦書き
