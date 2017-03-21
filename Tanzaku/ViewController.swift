@@ -34,7 +34,7 @@ class ViewController: UIViewController {
 		tanzaku.textColor = UIColor.blue
 		tanzaku.truncationMode = .byCharWrapping
 		tanzaku.numberOfLines = UInt(lineCount)
-		tanzaku.textAlignment = .top
+		tanzaku.textAlignment = .center
 		
 		sampleLabel.text = text
 		sampleLabel.lineBreakMode = tanzaku.truncationMode.convertToNativeLineBreakMode()
@@ -42,6 +42,10 @@ class ViewController: UIViewController {
 		
 		lineCountLabel.text = "\(lineCount)"
 		numberOfLines.value = Double(lineCount)
+		
+		let num = 1234567890
+		let str = KanjiNumerals.arabicToKanjiNumerals(num, method: KanjiNumerals.KanjiConversionMethod.positional)
+		print(#function, "\(str)")
 	}
 
 	override func didReceiveMemoryWarning() {
