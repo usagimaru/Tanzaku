@@ -34,6 +34,7 @@ class ViewController: UIViewController {
 		tanzaku.textColor = UIColor.blue
 		tanzaku.truncationMode = .byCharWrapping
 		tanzaku.numberOfLines = UInt(lineCount)
+		tanzaku.textAlignment = .top
 		
 		sampleLabel.text = text
 		sampleLabel.lineBreakMode = tanzaku.truncationMode.convertToNativeLineBreakMode()

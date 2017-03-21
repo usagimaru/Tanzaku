@@ -69,6 +69,44 @@ class Tanzaku: UIView {
 		}
 	}
 	
+	/// 配置方法
+	enum TextAlignment: Int {
+		/// 上配置
+		case top
+		/// 中央配置
+		case center
+		/// 下配置
+		case bottom
+		
+		static func convert(from nativeTextAlignment: NSTextAlignment) -> TextAlignment {
+			switch nativeTextAlignment {
+			case .center:
+				return TextAlignment.center
+			case .right:
+				return TextAlignment.bottom
+			default:
+				return TextAlignment.top
+			}
+		}
+		
+		func convertToNativeTextAlignment() -> NSTextAlignment {
+			switch self {
+			case .top:
+				return .left
+			case .center:
+				return .center
+			case .bottom:
+				return .right
+			}
+		}
+	}
+	
+	var textAlignment: TextAlignment = .top {
+		didSet {
+			update()
+		}
+	}
+	
 	/// 省略方法
 	enum TruncationMode: Int {
 		/// 文字単位折り返し
@@ -171,6 +209,7 @@ class Tanzaku: UIView {
 	private class func createAttributedString(_ text: String,
 	                                    font: UIFont,
 	                                    lineSpacing: CGFloat = 0,
+	                                    textAlignment: TextAlignment,
 	                                    textColor: UIColor? = nil) -> NSAttributedString {
 		let lineHeight = (font.lineHeight - font.descender)
 		
@@ -179,7 +218,7 @@ class Tanzaku: UIView {
 		paragraph.minimumLineHeight = lineHeight
 		paragraph.maximumLineHeight = lineHeight
 		paragraph.lineBreakMode = .byCharWrapping
-		paragraph.alignment = .left
+		paragraph.alignment = textAlignment.convertToNativeTextAlignment()
 		
 		var attributes = [
 			NSFontAttributeName : font,
@@ -217,11 +256,13 @@ class Tanzaku: UIView {
 	                            font: UIFont,
 	                            numberOfLines: UInt,
 	                            lineSpacing: CGFloat,
+	                            textAlignment: TextAlignment,
 	                            textColor: UIColor? = nil,
 	                            containsFullLine: Bool = false) -> TextInfo? {
 		let attributedString = createAttributedString(text,
 		                                              font: font,
 		                                              lineSpacing: lineSpacing,
+		                                              textAlignment: textAlignment,
 		                                              textColor: textColor)
 		let length = attributedString.length
 		let framesetter = CTFramesetterCreateWithAttributedString(attributedString as CFAttributedString)
@@ -284,6 +325,7 @@ class Tanzaku: UIView {
 			token,
 			font: font,
 			lineSpacing: lineSpacing,
+			textAlignment: textAlignment,
 			textColor: textColor) as CFAttributedString
 		truncationToken = CTLineCreateWithAttributedString(tokenText)
 		
@@ -303,6 +345,7 @@ class Tanzaku: UIView {
 			font: font,
 			numberOfLines: numberOfLines,
 			lineSpacing: lineSpacing,
+			textAlignment: textAlignment,
 			textColor: textColor,
 			containsFullLine: true)
 			else {return}
@@ -381,7 +424,19 @@ class Tanzaku: UIView {
 		let lineBounds = CTLineGetBoundsWithOptions(line, Tanzaku.lineBoundsOptions())
 		let lineSpacing = self.lineSpacing * CGFloat(lineIndex)
 		let x = rect.width - lineHeight * CGFloat(lineIndex) + font.descender * 2 + font.descender / 2 - lineSpacing
-		let y = -rect.height - font.descender / 2
+		var y = -rect.height - font.descender / 2
+		
+		// 配置
+		switch textAlignment {
+		case .center:
+			y += (rect.height - lineBounds.width) / 2
+			break
+		case .bottom:
+			y += (rect.height - lineBounds.width)
+			break
+		default:
+			break
+		}
 		
 		context.textPosition = CGPoint(x: y, y: x)
 		CTLineDraw(line, context)
@@ -463,13 +518,15 @@ class Tanzaku: UIView {
 	                             font: UIFont,
 	                             numberOfLines: UInt = 0,
 	                             lineSpacing: CGFloat,
+	                             textAlignment: TextAlignment,
 	                             constraintHeight: CGFloat) -> CGSize {
 		let rect = CGRect(x: 0, y: 0, width: CGFloat.greatestFiniteMagnitude, height: constraintHeight)
 		if let size = textInfo(text,
 		                       rect: rect,
 		                       font: font,
 		                       numberOfLines: numberOfLines,
-		                       lineSpacing: lineSpacing)?.frameSize {
+		                       lineSpacing: lineSpacing,
+		                       textAlignment: textAlignment)?.frameSize {
 			return size
 		}
 		
@@ -483,6 +540,7 @@ class Tanzaku: UIView {
 				font: font,
 				numberOfLines: numberOfLines,
 				lineSpacing: lineSpacing,
+				textAlignment: textAlignment,
 				constraintHeight: constraintHeight)
 			return size
 		}
