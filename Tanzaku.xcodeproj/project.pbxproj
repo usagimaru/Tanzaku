@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		512BB8921E81816C0025894A /* Kanji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512BB8911E81816C0025894A /* Kanji.swift */; };
+		512BB8921E81816C0025894A /* KanjiNumerals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512BB8911E81816C0025894A /* KanjiNumerals.swift */; };
 		5136A08F1E7599D900D4ED48 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136A08E1E7599D900D4ED48 /* AppDelegate.swift */; };
 		5136A0911E7599D900D4ED48 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5136A0901E7599D900D4ED48 /* ViewController.swift */; };
 		5136A0941E7599D900D4ED48 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5136A0921E7599D900D4ED48 /* Main.storyboard */; };
@@ -17,7 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		512BB8911E81816C0025894A /* Kanji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Kanji.swift; sourceTree = "<group>"; };
+		512BB8911E81816C0025894A /* KanjiNumerals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KanjiNumerals.swift; sourceTree = "<group>"; };
 		5136A08B1E7599D900D4ED48 /* Tanzaku.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tanzaku.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5136A08E1E7599D900D4ED48 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5136A0901E7599D900D4ED48 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -59,7 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				5136A0A01E759A2D00D4ED48 /* Tanzaku.swift */,
-				512BB8911E81816C0025894A /* Kanji.swift */,
+				512BB8911E81816C0025894A /* KanjiNumerals.swift */,
 				5136A08E1E7599D900D4ED48 /* AppDelegate.swift */,
 				5136A0901E7599D900D4ED48 /* ViewController.swift */,
 				5136A0921E7599D900D4ED48 /* Main.storyboard */,
@@ -146,7 +146,7 @@
 				5136A0911E7599D900D4ED48 /* ViewController.swift in Sources */,
 				5136A08F1E7599D900D4ED48 /* AppDelegate.swift in Sources */,
 				5136A0A11E759A2D00D4ED48 /* Tanzaku.swift in Sources */,
-				512BB8921E81816C0025894A /* Kanji.swift in Sources */,
+				512BB8921E81816C0025894A /* KanjiNumerals.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

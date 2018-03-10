@@ -284,7 +284,6 @@ class Tanzaku: UIView {
 		// font.lineHeight == leading * 2
 		// font.descender * 2 == (font.ascender - font.lineHeight + font.descender)
 		
-		
 		// 最大行数に合わせた横幅
 		if numberOfLines > 0 {
 			let suggestedWidth = lineHeight * CGFloat(numberOfLines) + lineSpacing * CGFloat(numberOfLines - 1)
@@ -292,6 +291,7 @@ class Tanzaku: UIView {
 				size.width = suggestedWidth + 1
 			}
 		}
+		print(#function, "\(size.width)")
 		
 		
 		// 全体の CTLine オブジェクトが必要なら用意
@@ -334,7 +334,9 @@ class Tanzaku: UIView {
 	}
 	
 	/// 行を描画
-	private func drawLines(in rect: CGRect, context: CGContext) {
+	private func drawLines(in r: CGRect, context: CGContext) {
+		var rect = r
+		//rect.size.width += 20
 		guard let text = text else {
 			context.clear(rect)
 			return
@@ -358,6 +360,7 @@ class Tanzaku: UIView {
 		let framesetter = textInfo.framesetter
 		let frame = CTFramesetterCreateFrame(framesetter, CFRange(location: 0, length: 0), CGPath(rect: rect, transform: nil), Tanzaku.framesetterOptions())
 		let lines = CTFrameGetLines(frame) as! [CTLine]
+		print(#function, "\(lines.count), \(rect)")
 		let maxLineCount = numberOfLines > 0 ? min(Int(numberOfLines), lines.count) : lines.count
 		var translate_x = (rect.width - textInfo.lineHeight * CGFloat(maxLineCount)) / 2.0 // 行全体をビューの横中央配置にするための調整
 		if maxLineCount > 1 {
@@ -369,8 +372,7 @@ class Tanzaku: UIView {
 		context.scaleBy(x: 1.0, y: -1.0)
 		context.translateBy(x: font.descender * 2 - translate_x,
 		                    y: -rect.height - font.descender / 2)
-		context.rotate(by: CGFloat(-M_PI_2))
-		
+		context.rotate(by: CGFloat(-Double.pi / 2))
 		
 		// 各行を描画
 		for (i, line) in lines.enumerated() {
